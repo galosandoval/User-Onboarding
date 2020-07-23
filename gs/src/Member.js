@@ -8,7 +8,7 @@ const Member = ({details}) => {
   }
   return (
     <div className="member-container">
-      <h3>{details.first_name} {details.last_name}</h3>
+      <h3>{details.first_name} {details.last_name} </h3>
       <p>{details.email}</p>
     </div>
   )

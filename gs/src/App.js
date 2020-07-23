@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import * as yup from 'yup'
-import logo from './logo.svg';
 import './App.css';
 import Form from './Form'
 import Member from './Member'
@@ -9,7 +8,7 @@ import formSchema from './formSchema';
 
 const initialMembers = [];
 
-const initialDisabled = false;
+const initialDisabled = true;
 
 const initialFormValues = {
   username: '',
@@ -33,22 +32,22 @@ function App() {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
 
-  // const getMembers = () => {
-  //   axios.get('https://reqres.in/api/users')
-  //     .then(res => {
-  //       setMembers(res.data.data)
+  const getMembers = () => {
+    axios.get('https://reqres.in/api/users')
+      .then(res => {
+        setMembers(res.data.data)
 
-  //       console.log(res.data.data)
-  //     })
-  //     .catch(err => {
-  //       console.log(err, 'uh oh')
-  //     })
-  // }
+        console.log(res.data.data)
+      })
+      .catch(err => {
+        console.log(err, 'uh oh')
+      })
+  }
 
   const postNewMember = (newMember) => {
     axios.post('https://reqres.in/api/users', newMember)
       .then(res => {
-        setMembers(res.data.data, ...members)
+        setMembers([res.data.data, ...members])
         setFormValues(initialFormValues)
       })
       .catch(err => {
@@ -60,7 +59,7 @@ function App() {
     yup
       .reach(formSchema, name)
       .validate(value)
-      .then(res => {
+      .then(valid => {
         setFormErrors({
           ...formErrors,
           [name]: "",
@@ -90,15 +89,15 @@ function App() {
     const newMember = {
       username: formValues.username.trim(),
       email: formValues.email.trim(),
-      password: formValues.password.trim(),
-      terms: formValues.terms,
+      // password: formValues.password.trim(),
+      // terms: formValues.terms
     }
     postNewMember(newMember)
   }
   // SIDE EFFECTS
-  // useEffect(() => {
-  //   getMembers()
-  // }, [])
+  useEffect(() => {
+    getMembers()
+  }, [])
 
   useEffect(() => {
     formSchema.isValid(formValues).then(valid => {
@@ -109,30 +108,23 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* {members.map(member => {
+
+      <Form
+        values={formValues}
+        submit={submit}
+        inputChange={inputChange}
+        checkboxChange={checkBoxChange}
+        disabled={disabled}
+        errors={formErrors}
+      />
+      {
+        members.map(member => {
           return (
-            <Member key={member.id} details={member} />
+            <Member key={members.id} details={member} />
           )
         })
-        } */}
-        <Form
-          values={formValues}
-          submit={submit}
-          inputChange={inputChange}
-          checkboxChange={checkBoxChange}
-          disabled={disabled}
-          errors={formErrors}
-        />
-        {
-          members.map(member => {
-            return (
-              <Member key={member.id} details={member} />
-            )
-          })
-        }
-      </header>
+      }
+
     </div>
   );
 }
