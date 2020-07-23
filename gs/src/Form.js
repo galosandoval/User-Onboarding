@@ -10,6 +10,7 @@ const Form = (props) => {
     errors,
   } = props
 
+
   const onSubmit = event => {
     event.preventDefault()
     submit()
@@ -69,7 +70,7 @@ const Form = (props) => {
         <input
             type="checkbox"
             name='terms'
-            checked={values.terms === true}
+            checked={values.terms===true}
             onChange={onCheckboxChange}
           />
         </label>
