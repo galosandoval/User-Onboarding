@@ -47,6 +47,14 @@ const Form = (props) => {
             type='text'
           />
         </label>
+        <label>Password&nbsp;
+          <input
+            value={values.password}
+            onChange={onInputChange}
+            name='password'
+            type='password'
+          />
+        </label>
         <label>Email&nbsp;
         <input
             value={values.email}
@@ -55,6 +63,8 @@ const Form = (props) => {
             type='text'
           />
         </label>
+      </div>
+      <div className='form-checkbox'>
         <label>Did you read the terms of service?
         <input
             type="checkbox"
@@ -64,9 +74,6 @@ const Form = (props) => {
           />
         </label>
       </div>
-    <div className='form-checkbox'>
-
-    </div>
     </form >
   )
 }

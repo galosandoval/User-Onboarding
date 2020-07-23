@@ -15,7 +15,7 @@ const initialFormValues = {
   username: '',
   email: '',
   password: '',
-  terms: '',
+  terms: false,
 }
 
 const initialFormErrors = {
@@ -33,17 +33,17 @@ function App() {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
 
-  const getMembers = () => {
-    axios.get('https://reqres.in/api/users')
-      .then(res => {
-        setMembers(res.data.data)
+  // const getMembers = () => {
+  //   axios.get('https://reqres.in/api/users')
+  //     .then(res => {
+  //       setMembers(res.data.data)
 
-        console.log(res.data.data)
-      })
-      .catch(err => {
-        console.log(err, 'uh oh')
-      })
-  }
+  //       console.log(res.data.data)
+  //     })
+  //     .catch(err => {
+  //       console.log(err, 'uh oh')
+  //     })
+  // }
 
   const postNewMember = (newMember) => {
     axios.post('https://reqres.in/api/users', newMember)
@@ -96,9 +96,9 @@ function App() {
     postNewMember(newMember)
   }
   // SIDE EFFECTS
-  useEffect(() => {
-    getMembers()
-  }, [])
+  // useEffect(() => {
+  //   getMembers()
+  // }, [])
 
   useEffect(() => {
     formSchema.isValid(formValues).then(valid => {
