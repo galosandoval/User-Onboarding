@@ -47,7 +47,7 @@ function App() {
   const postNewMember = (newMember) => {
     axios.post('https://reqres.in/api/users', newMember)
       .then(res => {
-        setMembers([res.data.data, ...members])
+        setMembers([res.data, ...members])
         setFormValues(initialFormValues)
       })
       .catch(err => {
@@ -118,9 +118,9 @@ function App() {
         errors={formErrors}
       />
       {
-        members.map(member => {
+        members.map((member,index) => {
           return (
-            <Member key={members.id} details={member} />
+            <Member key={index} details={member} />
           )
         })
       }

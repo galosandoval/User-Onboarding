@@ -60,7 +60,7 @@ const Form = (props) => {
             value={values.email}
             onChange={onInputChange}
             name='email'
-            type='text'
+            type='email'
           />
         </label>
       </div>
